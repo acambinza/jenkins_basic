@@ -1,0 +1,30 @@
+version: '3'
+services:
+  jenkins-server:
+    image: jenkins/jenkins:2.60.3
+    container_name: jenkins-server
+    platform: linux/amd64
+    networks:
+      - jenkins
+    ports:
+      - "8080:8080"
+      - "50000:50000"
+    volumes:
+      - jenkins_home:/var/jenkins_home
+
+  jenkins-agent:
+    image: jenkins/agent:jdk11-windowsservercore-ltsc2019
+    container_name: jenkins-agent
+    platform: linux/amd64
+    networks:
+      - jenkins
+    environment:
+      - JENKINS_URL=http://jenkins-server:8080
+      - JENKINS_AGENT_NAME=agent-1
+      - JENKINS_SECRET=<agent_secret>
+
+networks:
+  jenkins:
+
+volumes:
+  jenkins_home:
