@@ -40,8 +40,9 @@ pipeline {
                     sh 'docker rm api-produto || true'
                     
                     // Execute o novo contêiner
-                    sh "docker run -d --name api-produto -p 8080:8080 ${DOCKER_IMAGE_NAME}:${env.BUILD_ID}"
+                    sh "docker run -d --name api-produto -p 3001:3001 ${DOCKER_IMAGE_NAME}:${env.BUILD_ID}"
                     echo "Application deployed successfully"
+                    echo "Application runnin at port 3001"
                 }
             }
         }
