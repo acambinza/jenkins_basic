@@ -31,5 +31,19 @@ pipeline {
                 }
             }
         }
+
+        stage('Deploy') {
+            steps {
+                script {
+                    // Pare o contêiner em execução, se houver
+                    sh 'docker stop api-produto || true'
+                    sh 'docker rm api-produto || true'
+                    
+                    // Execute o novo contêiner
+                    sh "docker run -d --name api-produto -p 8080:8080 ${DOCKER_IMAGE_NAME}:${env.BUILD_ID}"
+                    echo "Application deployed successfully"
+                }
+            }
+        }
     }
 }
