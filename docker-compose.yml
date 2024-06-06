@@ -13,7 +13,7 @@ services:
       - jenkins_home:/var/jenkins_home
 
   jenkins-agent:
-    image: jenkins/agent:jdk11-windowsservercore-ltsc2019
+    image: jenkins/agent:latest-jdk17
     container_name: jenkins-agent
     platform: linux/amd64
     networks:
