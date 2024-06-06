@@ -23,7 +23,8 @@ pipeline {
                 script {
                         docker.withRegistry(DOCKER_REGISTRY_URL, DOCKER_CREDENTIALS_ID) {
                         def dockerImage = docker.image("${DOCKER_IMAGE_NAME}:${env.BUILD_ID}")
-                        dockerImage.push()
+                        dockerImage.push('latest')
+                        dockerImage.push("${env.BUILD_ID}")
                         echo "Docker image ${DOCKER_IMAGE_NAME}:${env.BUILD_ID} pushed successfully"
                     }
                     
